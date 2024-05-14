@@ -7,10 +7,13 @@ const app = express();
 
 // Add middlewares to enable cors and json body parsing
 app.use(cors({
-  origin: [
-    "https://happy-thoughts-api-ap6c.onrender.com",
-    "https://happyhappenings.netlify.app/",
-  ],
+  origin:
+  //[
+   // "https://happy-thoughts-api-ap6c.onrender.com",
+   // "https://happyhappenings.netlify.app/",
+  //]
+  "* "
+  ,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
