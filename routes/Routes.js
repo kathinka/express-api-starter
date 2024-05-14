@@ -1,4 +1,4 @@
-import express from "express";
+import express, { response } from "express";
 import listEndpoints from "express-list-endpoints";
 import HappyThought from "../model/Happythoughts";
 const router = express.Router();
@@ -8,14 +8,17 @@ router.post("/thoughts", async (req, res) => {
   const { message } = req.body;
   try {
     const newHappyThought = await new HappyThought({ message }).save();
-    res.status(201).json(newHappyThought);
+    res.status(201).json({
+      success: true,
+      response: newHappyThought,
+      message: "Thought saved successfully",
+    });
   } catch (error) {
     console.error(error); // Log the error
     res.status(400).json({
       success: false,
       response: error,
       message: "Could not save thought",
-      error,
     });
   }
 });
@@ -26,7 +29,11 @@ router.get("/thoughts", async (req, res) => {
     .sort({ createdAt: "desc" })
     .limit(20)
     .exec();
-  res.json(thoughts);
+  res.json({
+    success: true,
+    response: thoughts,
+    message: "All thoughts fetched successfully",
+  });
 });
 
 //post a like to a happy thought
@@ -39,12 +46,24 @@ router.post("/thoughts/:thoughtId/like", async (req, res) => {
       { new: true }
     );
     if (updatedThought) {
-      res.json(updatedThought);
+      res.json({
+        success: true,
+        response: updatedThought,
+        message: "Like saved successfully",
+      });
     } else {
-      res.status(404).json({ message: "Thought not found" });
+      res.status(404).json({
+        success: false,
+        response: error,
+        message: "Thought not found",
+      });
     }
   } catch (error) {
-    res.status(400).json({ message: "Could not save like", error });
+    res.status(400).json({
+      success: false,
+      response: error,
+      message: "Could not save like",
+    });
   }
 });
 
@@ -54,12 +73,24 @@ router.delete("/thoughts/:thoughtId", async (req, res) => {
   try {
     const deletedThought = await HappyThought.findByIdAndDelete(thoughtId);
     if (deletedThought) {
-      res.json(deletedThought);
+      res.json({
+        success: true,
+        response: deletedThought,
+        message: "Thought deleted successfully",
+      });
     } else {
-      res.status(404).json({ message: "Thought not found" });
+      res.status(404).json({
+        success: false,
+        response: error,
+        message: "Thought not found",
+      });
     }
   } catch (error) {
-    res.status(400).json({ message: "Could not delete thought", error });
+    res.status(400).json({
+      success: false,
+      response: error,
+      message: "Could not delete thought",
+    });
   }
 });
 
@@ -71,7 +102,11 @@ router.get("/thoughts/filter", async (req, res) => {
     .limit(parseInt(limit))
     .skip(parseInt(skip))
     .exec();
-  res.json(thoughts);
+  res.json({
+    success: true,
+    response: thoughts,
+    message: "Filtered thoughts fetched successfully",
+  });
 });
 
 // get updated documentation
@@ -102,13 +137,21 @@ router.get("/", (req, res) => {
         methods: endpoint.methods,
       };
     });
-    res.json(updatedEndpoints);
+    res.json({
+      success: true,
+      response: updatedEndpoints,
+      message: "Endpoints fetched successfully",
+    });
   } catch (error) {
     // If an error occurred, create a new error with a custom message
     const customError = new Error(
       "An error occurred while fetching the endpoints"
     );
-    res.status(404).json({ message: customError.message });
+    res.status(404).json({
+      success: false,
+      response: error,
+      message: customError.message,
+    });
   }
 });
 
