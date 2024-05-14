@@ -6,14 +6,14 @@ import router from "./routes/Routes.js";
 const app = express();
 
 // Add middlewares to enable cors and json body parsing
-app.use(
-  cors({
-    origin: [
-      "https://happy-thoughts-api-ap6c.onrender.com",
-      "https://happyhappenings.netlify.app/",
-    ],
-  })
-);
+app.use(cors({
+  origin: [
+    "https://happy-thoughts-api-ap6c.onrender.com",
+    "https://happyhappenings.netlify.app/",
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());
 app.use("/", router);
 
