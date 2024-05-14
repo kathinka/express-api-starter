@@ -8,11 +8,7 @@ router.post("/thoughts", async (req, res) => {
   const { message } = req.body;
   try {
     const newHappyThought = await new HappyThought({ message }).save();
-    res.status(201).json({
-      success: true,
-      response: newHappyThought,
-      message: "Thought saved successfully",
-    });
+    res.status(201).json( newHappyThought);
   } catch (error) {
     console.error(error); // Log the error
     res.status(400).json({
@@ -29,11 +25,7 @@ router.get("/thoughts", async (req, res) => {
     .sort({ createdAt: "desc" })
     .limit(20)
     .exec();
-  res.json({
-    success: true,
-    response: thoughts,
-    message: "All thoughts fetched successfully",
-  });
+  res.json( thoughts);
 });
 
 //post a like to a happy thought
@@ -46,11 +38,7 @@ router.post("/thoughts/:thoughtId/like", async (req, res) => {
       { new: true }
     );
     if (updatedThought) {
-      res.json({
-        success: true,
-        response: updatedThought,
-        message: "Like saved successfully",
-      });
+      res.json(updatedThought);
     } else {
       res.status(404).json({
         success: false,
@@ -73,11 +61,7 @@ router.delete("/thoughts/:thoughtId", async (req, res) => {
   try {
     const deletedThought = await HappyThought.findByIdAndDelete(thoughtId);
     if (deletedThought) {
-      res.json({
-        success: true,
-        response: deletedThought,
-        message: "Thought deleted successfully",
-      });
+      res.json(deletedThought);
     } else {
       res.status(404).json({
         success: false,
@@ -102,11 +86,7 @@ router.get("/thoughts/filter", async (req, res) => {
     .limit(parseInt(limit))
     .skip(parseInt(skip))
     .exec();
-  res.json({
-    success: true,
-    response: thoughts,
-    message: "Filtered thoughts fetched successfully",
-  });
+  res.json(thoughts);
 });
 
 // get updated documentation
@@ -137,11 +117,7 @@ router.get("/", (req, res) => {
         methods: endpoint.methods,
       };
     });
-    res.json({
-      success: true,
-      response: updatedEndpoints,
-      message: "Endpoints fetched successfully",
-    });
+    res.json(updatedEndpoints);
   } catch (error) {
     // If an error occurred, create a new error with a custom message
     const customError = new Error(
