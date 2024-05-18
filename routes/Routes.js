@@ -94,7 +94,7 @@ router.get("/", (req, res) => {
   try {
     const endpoints = listEndpoints(router);
     const updatedEndpoints = endpoints.map((endpoint) => {
-      if (endpoint.path === "/thoughts/filter") {
+      if (endpoint.path === "/thoughts") {
         return {
           path: endpoint.path,
           methods: endpoint.methods,
