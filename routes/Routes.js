@@ -18,7 +18,7 @@ router.post("/thoughts", async (req, res) => {
     });
   }
 });
-
+/*
 //get all happy thoughts, but only the 20 most recent
 router.get("/thoughts", async (req, res) => {
   const thoughts = await HappyThought.find()
@@ -27,7 +27,7 @@ router.get("/thoughts", async (req, res) => {
     .exec();
   res.json( thoughts);
 });
-
+*/
 //post a like to a happy thought
 router.post("/thoughts/:thoughtId/like", async (req, res) => {
   const { thoughtId } = req.params;
@@ -79,12 +79,12 @@ router.delete("/thoughts/:thoughtId", async (req, res) => {
 });
 
 //filter happy thoughts by limit or skip or both
-router.get("/thoughts/filter", async (req, res) => {
-  const { limit, skip } = req.query;
+router.get("/thoughts", async (req, res) => {
+  const { limit, page } = req.query;
   const thoughts = await HappyThought.find()
     .sort({ createdAt: "desc" })
     .limit(parseInt(limit))
-    .skip(parseInt(skip))
+    .skip(parseInt(page))
     .exec();
   res.json(thoughts);
 });

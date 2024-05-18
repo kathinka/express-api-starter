@@ -9,7 +9,7 @@ const app = express();
 app.use(cors({
   origin:
   [
-   // "https://happy-thoughts-api-ap6c.onrender.com",
+  "https://happy-thoughts-api-ap6c.onrender.com",
    "https://happyhappenings.netlify.app",
 ]
 
