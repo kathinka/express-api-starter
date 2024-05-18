@@ -102,12 +102,12 @@ router.get("/", (req, res) => {
             {
               name: "limit",
               description:
-                "filter the thoughts by the number of thoughts you want to get Example: /thoughts/filter?limit=5  you could also combine limit and skip Example: /thoughts/filter?limit=5&skip=5",
+                "filter the thoughts by the number of thoughts you want to get Example: /thoughts/filter?limit=5  you could also combine limit and skip Example: /thoughts?limit=5&page=5",
             },
             {
-              name: "skip",
+              name: "page",
               description:
-                "filter the thoughts by the number of thoughts you want to skip Example: /thoughts/filter?skip=5  you could also combine limit and skip Example: /thoughts/filter?limit=5&skip=5",
+                "filter the thoughts by the number of thoughts you want to skip Example: /thoughts/filter?page=5  you could also combine limit and skip Example: /thoughts?limit=5&page=5",
             },
           ],
         };
