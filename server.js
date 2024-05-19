@@ -7,15 +7,15 @@ const app = express();
 
 // Add middlewares to enable cors and json body parsing
 app.use(cors({
-  origin:
-  [
-  "https://happy-thoughts-api-ap6c.onrender.com",
+	origin:
+	[
 
+	 "https://happyhappenings.netlify.app"
 ]
 
-  ,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'updatedthoughtlike']
+	,
+	methods: ['GET', 'POST', 'PUT', 'DELETE'],
+	allowedHeaders: ['Content-Type', 'Authorization', 'updatedthoughtlike']
 }));
 app.use(express.json());
 app.use("/", router);
@@ -29,5 +29,5 @@ const port = process.env.PORT || 8080;
 
 // Start the server
 app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
+	console.log(`Server running on http://localhost:${port}`);
 });
