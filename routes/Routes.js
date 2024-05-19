@@ -18,16 +18,7 @@ router.post("/thoughts", async (req, res) => {
     });
   }
 });
-/*
-//get all happy thoughts, but only the 20 most recent
-router.get("/thoughts", async (req, res) => {
-  const thoughts = await HappyThought.find()
-    .sort({ createdAt: "desc" })
-    .limit(20)
-    .exec();
-  res.json( thoughts);
-});
-*/
+
 //post a like to a happy thought
 router.post("/thoughts/:thoughtId/like", async (req, res) => {
   const { thoughtId } = req.params;
@@ -130,6 +121,23 @@ router.get("/", (req, res) => {
     });
   }
 });
+
+
+router.get('/pages', async (req, res) => {
+  const limit = Number(req.query.limit) || 10; // default limit to  if not provided
+
+  try {
+    const count = await HappyThought.countDocuments(); // replace Thought with your model
+    const totalPages = Math.ceil(count / limit);
+
+    res.json({ totalPages });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+
+
 
 router.use("/", (req, res) => {
   res.send(listEndpoints(router));
