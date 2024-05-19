@@ -3,6 +3,28 @@ import listEndpoints from "express-list-endpoints";
 import HappyThought from "../model/Happythoughts";
 const router = express.Router();
 
+
+
+// get 20 happy thoughts
+router.get("/thoughts", async (req, res) => {
+  try {
+    const happyThoughts = await HappyThought.find()
+      .sort({ createdAt: "desc" })
+      .limit(20)
+      .exec();
+    res.json(happyThoughts);
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      response: error,
+      message: "Could not get thoughts",
+    });
+  }
+});
+
+
+
+
 //post new happy thought
 router.post("/thoughts", async (req, res) => {
   const { message } = req.body;
@@ -124,7 +146,7 @@ router.get("/", (req, res) => {
 
 
 router.get('/pages', async (req, res) => {
-  const limit = Number(req.query.limit) || 10; // default limit to  if not provided
+  const limit = Number(req.query.limit) || 20; // default limit to  if not provided
 
   try {
     const count = await HappyThought.countDocuments(); // replace Thought with your model
