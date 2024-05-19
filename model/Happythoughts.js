@@ -11,6 +11,12 @@ const happyThoughtSchema = new Schema({
   hearts: {
     type: Number,
     default: 0,
+    validate: {
+      validator: function(v) {
+        return v === this.default;
+      },
+      message: props => `${props.value} is not a valid initial value for hearts!`
+    }
   },
   createdAt: {
     type: Date,
