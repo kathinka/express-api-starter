@@ -92,7 +92,7 @@ router.delete("/thoughts/:thoughtId", async (req, res) => {
 });
 
 //filter happy thoughts by limit or skip or both
-router.get("/thoughts", async (req, res) => {
+router.get("/thoughts/q", async (req, res) => {
   const { limit, page } = req.query;
   const thoughts = await HappyThought.find()
     .sort({ createdAt: "desc" })
@@ -115,12 +115,12 @@ router.get("/", (req, res) => {
             {
               name: "limit",
               description:
-                "filter the thoughts by the number of thoughts you want to get Example: /thoughts/filter?limit=5  you could also combine limit and skip Example: /thoughts?limit=5&page=5",
+                "filter the thoughts by the number of thoughts you want to get Example: /thoughts/q?limit=5  you could also combine limit and skip Example: /thoughts?limit=5&page=5",
             },
             {
               name: "page",
               description:
-                "filter the thoughts by the number of thoughts you want to skip Example: /thoughts/filter?page=5  you could also combine limit and skip Example: /thoughts?limit=5&page=5",
+                "filter the thoughts by the number of thoughts you want to skip Example: /thoughts/q?page=5  you could also combine limit and skip Example: /thoughts?limit=5&page=5",
             },
           ],
         };
