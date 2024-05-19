@@ -10,7 +10,7 @@ const happyThoughtSchema = new Schema({
   },
   hearts: {
     type: Number,
-    default: 0
+    default: 0,
   },
   createdAt: {
     type: Date,
